@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Xearts\Symfony\UX\Ckeditor5\Form;
@@ -34,9 +35,10 @@ class Ckeditor5TextareaType extends AbstractType
         $view->vars['language'] = $options['language'];
         if ($options['image_upload_url']) {
             $view->vars['image_upload_url'] = $options['image_upload_url'];
-        } else if ($options['image_upload_route'] && $this->urlGenerator) {
+        } elseif ($options['image_upload_route'] && $this->urlGenerator) {
             $view->vars['image_upload_url'] = $this->urlGenerator->generate(
-                $options['image_upload_route'], $options['image_upload_route_params']
+                $options['image_upload_route'],
+                $options['image_upload_route_params']
             );
         }
 
@@ -44,7 +46,7 @@ class Ckeditor5TextareaType extends AbstractType
             $token = $this->tokenManager->getToken($options['image_upload_csrf_token_id'])->getValue();
             $view->vars['image_upload_csrf_token'] = $token;
         }
-        $view->vars['ckeditor5_options'] = \json_encode($options['ckeditor5_options'], JSON_FORCE_OBJECT);
+        $view->vars['ckeditor5_options'] = \json_encode($options['ckeditor5_options']);
     }
 
 
